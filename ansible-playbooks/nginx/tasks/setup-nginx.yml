@@ -1,0 +1,27 @@
+---
+  - name: install nginx
+    action: apt name=nginx
+
+  - name: write nginx.conf
+    action: template src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+    notify:
+      - restart nginx
+  - name: write php-fpm.conf
+    action: template src=php-fpm.conf.j2 dest=/etc/nginx/conf.d/php-fpm.conf
+    notify:
+      - restart nginx
+  - name: write gzip.conf
+    action: template src=gzip.conf.j2 dest=/etc/nginx/conf.d/gzip.conf
+    notify:
+      - restart nginx
+  - name: write cache.inc
+    action: template src=cache.inc.j2 dest=/etc/nginx/conf.d/cache.inc
+    notify:
+      - restart nginx
+  - name: write vhost.conf
+    action: template src=vhost.conf.j2 dest=/etc/nginx/sites-enabled/vhost.conf
+    notify:
+      - restart nginx
+
+
+
